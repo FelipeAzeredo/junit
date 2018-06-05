@@ -1,15 +1,21 @@
 package br.com.flazeredo.servicos;
 
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Date;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.com.flazeredo.entidades.Filme;
 import br.com.flazeredo.entidades.Locacao;
 import br.com.flazeredo.entidades.Usuario;
-import br.com.flazeredo.servicos.LocacaoService;
 import br.com.flazeredo.utils.DataUtils;
 
 
@@ -26,9 +32,10 @@ public class LocacaoServiceTest {
 		Locacao locacao = service.alugarFilme(usuario, filme);
 		
 		//verificacao 
-		Assert.assertEquals(5.0, locacao.getValor(), 0.01);
-		Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
-		Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
+		assertThat(locacao.getValor(), is(equalTo(5.0)));
+		assertThat(locacao.getValor(), is(not(6.0)));
+		assertThat(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()),is(true));
+		assertThat(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)),is(true));
 		
 	}
 	
