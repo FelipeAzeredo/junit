@@ -1,12 +1,16 @@
-package br.ce.wcaquino.servicos;
+package br.com.flazeredo.servicos;
 
-import static br.ce.wcaquino.utils.DataUtils.adicionarDias;
+import static br.com.flazeredo.utils.DataUtils.adicionarDias;
 
 import java.util.Date;
 
-import br.ce.wcaquino.entidades.Filme;
-import br.ce.wcaquino.entidades.Locacao;
-import br.ce.wcaquino.entidades.Usuario;
+import org.junit.Assert;
+import org.junit.Test;
+
+import br.com.flazeredo.entidades.Filme;
+import br.com.flazeredo.entidades.Locacao;
+import br.com.flazeredo.entidades.Usuario;
+import br.com.flazeredo.utils.DataUtils;
 
 public class LocacaoService {
 	
@@ -28,7 +32,5 @@ public class LocacaoService {
 		return locacao;
 	}
 
-	public static void main(String[] args) {
-		
-	}
+	
 }
