@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.is;
 import java.util.Date;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
@@ -23,19 +24,27 @@ import br.com.flazeredo.utils.DataUtils;
 
 public class LocacaoServiceTest {
 	
+	private LocacaoService service;
+	
+		
 	@Rule
 	public ErrorCollector error = new ErrorCollector();
 	
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
 	
+	@Before
+	public void setup() {
+		service = new LocacaoService();
+	}
+	
+	
+	
 	@Test
 	public void teste() throws Exception {
-		//cenario
-		LocacaoService service = new LocacaoService();
+		//cenario		
 		Usuario usuario = new Usuario("Usuario1");
 		Filme filme = new Filme("Filme1", 2, 5.0);
-		
 		
 		//acao
 		Locacao locacao = service.alugarFilme(usuario, filme);
@@ -50,7 +59,6 @@ public class LocacaoServiceTest {
 	@Test(expected = FilmeSemEstoqueException.class)
 	public void testLocacaoFilmeSemEstoque() throws Exception{
 		//cenario
-		LocacaoService service = new LocacaoService();
 		Usuario usuario = new Usuario("Usuario1");
 		Filme filme = new Filme("Filme1", 0, 5.0);		
 		
@@ -61,16 +69,15 @@ public class LocacaoServiceTest {
 	@Test
 	public void testLocacaoUsuarioVazio() throws FilmeSemEstoqueException {
 		//cenario
-		LocacaoService service = new LocacaoService();
 		Filme filme = new Filme("Filme 2", 1, 4.0);
 				
 		//acao
 		try {
 			service.alugarFilme(null, filme);
-			Assert.fail();
-		} catch (LocadoraException e) {	
+			Assert.fail();				
+		}catch (LocadoraException e) {	
 			Assert.assertThat(e.getMessage(), is("Usuario vazio"));
-			e.printStackTrace();		
+			
 		}
 		
 	}
@@ -78,7 +85,6 @@ public class LocacaoServiceTest {
 	@Test
 	public void testLocacaoFilmeVazio() throws FilmeSemEstoqueException, LocadoraException {
 		//cenario
-		LocacaoService service = new LocacaoService();
 		Usuario usuario = new Usuario("Usuario");
 		
 		exception.expect(LocadoraException.class);

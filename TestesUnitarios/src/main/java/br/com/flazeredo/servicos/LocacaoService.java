@@ -16,8 +16,7 @@ import br.com.flazeredo.utils.DataUtils;
 
 public class LocacaoService {
 	
-	public Locacao alugarFilme(Usuario usuario, Filme filme) throws LocadoraException, FilmeSemEstoqueException{
-		
+	public Locacao alugarFilme(Usuario usuario, Filme filme) throws FilmeSemEstoqueException, LocadoraException {		
 		
 		if(usuario == null) {
 			throw new LocadoraException("Usuario vazio");
@@ -30,6 +29,8 @@ public class LocacaoService {
 		if(filme.getEstoque() == 0) {
 			throw new FilmeSemEstoqueException();
 		}
+		
+		
 		
 		Locacao locacao = new Locacao();
 		locacao.setFilme(filme);
