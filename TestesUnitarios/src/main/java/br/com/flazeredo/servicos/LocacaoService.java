@@ -10,13 +10,25 @@ import org.junit.Test;
 import br.com.flazeredo.entidades.Filme;
 import br.com.flazeredo.entidades.Locacao;
 import br.com.flazeredo.entidades.Usuario;
+import br.com.flazeredo.exceptions.FilmeSemEstoqueException;
+import br.com.flazeredo.exceptions.LocadoraException;
 import br.com.flazeredo.utils.DataUtils;
 
 public class LocacaoService {
 	
-	public Locacao alugarFilme(Usuario usuario, Filme filme) throws Exception {
+	public Locacao alugarFilme(Usuario usuario, Filme filme) throws LocadoraException, FilmeSemEstoqueException{
+		
+		
+		if(usuario == null) {
+			throw new LocadoraException("Usuario vazio");
+		}
+		
+		if(filme == null) {
+			throw new LocadoraException("Filme vazio");			
+		}
+		
 		if(filme.getEstoque() == 0) {
-			throw new Exception("Filme sem estoque");
+			throw new FilmeSemEstoqueException();
 		}
 		
 		Locacao locacao = new Locacao();
